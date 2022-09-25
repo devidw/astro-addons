@@ -1,0 +1,14 @@
+{
+  "name": "astro-addons",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "prepublishOnly": "pnpm -F './packages/**' build",
+    "pkg:publish": "pnpm -F './packages/**' publish",
+    "release": "bumpp package.json packages/*/package.json && pnpm pkg:publish",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "bumpp": "^8.2.1"
+  }
+}

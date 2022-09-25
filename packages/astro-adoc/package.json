@@ -1,0 +1,39 @@
+{
+  "name": "astro-adoc",
+  "version": "0.1.0",
+  "description": "AsciiDoctor inside Astro",
+  "type": "module",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "components"
+  ],
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "rm -rf dist && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "astro-component",
+    "astro-integration",
+    "withastro",
+    "asciidoctor",
+    "asciidoc",
+    "adoc"
+  ],
+  "author": "David Wolf <d@wolf.gdn>",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devidw/astro-addons.git",
+    "directory": "packages/astro-adoc"
+  },
+  "homepage": "https://github.com/devidw/astro-addons/tree/main/packages/astro-adoc#readme",
+  "devDependencies": {
+    "@types/node": "^18.7.21",
+    "asciidoctor": "^2.2.6",
+    "astro": "^1.3.0",
+    "typescript": "^4.8.3"
+  },
+  "dependencies": {}
+}

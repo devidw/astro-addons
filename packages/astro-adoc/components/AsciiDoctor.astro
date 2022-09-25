@@ -1,0 +1,23 @@
+---
+import Processor from "asciidoctor"
+import * as fs from "fs"
+
+const processor = Processor()
+
+let { path } = Astro.props
+
+if (fs.existsSync(`${path}.adoc`)) {
+  path = `${path}.adoc`
+} else if (fs.existsSync(`${path}/index.adoc`)) {
+  path = `${path}/index.adoc`
+} else {
+  throw new Error(`No AsciiDoc file found at ${path}`)
+}
+
+console.log(path)
+
+const content = fs.readFileSync(path, "utf8")
+const html = processor.convert(content, { safe: "safe" })
+---
+
+<Fragment set:html={html} />

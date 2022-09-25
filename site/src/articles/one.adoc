@@ -1,0 +1,3 @@
+_wow_
+
+image::/favicon.ico[]

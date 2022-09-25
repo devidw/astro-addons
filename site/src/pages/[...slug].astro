@@ -1,0 +1,14 @@
+---
+import { getAdocPaths } from "astro-adoc"
+import { AsciiDoctor } from "astro-adoc/components"
+
+export async function getStaticPaths() {
+  const paths = await getAdocPaths("src/articles")
+  console.table(paths.map(({ params }) => params.slug))
+  return paths
+}
+
+const { slug } = Astro.params
+---
+
+<AsciiDoctor path={`src/articles/${slug}`} />
