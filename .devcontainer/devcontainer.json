@@ -20,10 +20,6 @@
 				"dbaeumer.vscode-eslint",
 				"astro-build.astro-vscode",
 				"GitHub.copilot",
-				"sysoev.language-stylus",
-				"syler.sass-indented",
-				"bradlc.vscode-tailwindcss",
-				"Vue.volar",
 				"MichaelCurrin.auto-commit-msg",
 				"asciidoctor.asciidoctor-vscode"
 			]
