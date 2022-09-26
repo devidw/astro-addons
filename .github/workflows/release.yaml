@@ -1,3 +1,5 @@
+# https://docs.github.com/en/actions/using-workflows/reusing-workflows#calling-a-reusable-workflow
+
 name: Release
 
 on:
@@ -6,26 +8,7 @@ on:
       - "v*"
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      # https://github.com/devcontainers/ci/blob/main/docs/github-action.md
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and run dev container task
-        uses: devcontainers/ci@v0.2
-        with:
-          imageName: ghcr.io/${{ github.repository }}
-          runCmd: |
-            pnpm build
-            pnpm -r publish --access public --no-git-checks
-          env: |
-            NPM_TOKEN=${{secrets.NPM_TOKEN}}
+  call-reusable-release-workflow:
+    uses: devidw/reusable-workflows/.github/workflows/mono.yaml@main
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

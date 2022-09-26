@@ -30,7 +30,9 @@ const { slug } = Astro.params
 ```
 
 If you want more control over the layout, you can use the `getAdoc` function
-instead of the `AsciiDoctor` component:
+instead of the `AsciiDoctor` component.
+
+You can access anything from the returning `AsciiDoctor.Document` instance you want to display.
 
 ```astro
 ---
@@ -51,15 +53,15 @@ const adoc = getAdoc(`src/articles/${slug}`)
 
 {adoc.getAuthor()}
 
-<!-- Access anything from the AsciiDoctor.Document instance you want to display -->
-
 <Fragment set:html={adoc.convert()} />
 ```
 
 ## Configuration
 
-The integrations wraps the asciidoctor.js library, so you can pass any option
+The integrations wraps the [asciidoctor.js](https://docs.asciidoctor.org/asciidoctor.js/) library, so you can pass any option
 that works with that library.
+
+See [_convert options_](https://docs.asciidoctor.org/asciidoctor.js/latest/processor/convert-options/) for more information.
 
 ```astro
 <AsciiDoctor
@@ -67,5 +69,3 @@ that works with that library.
   options={{ attributes: { showtitle: true } }}
 />
 ```
-
-See [Convert options](https://docs.asciidoctor.org/asciidoctor.js/latest/processor/convert-options/) for more information.
