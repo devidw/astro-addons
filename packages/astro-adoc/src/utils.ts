@@ -7,13 +7,15 @@ import type { GetStaticPathsResult } from 'astro'
 /**
  * Recursively get all .adoc files in a given directory
  */
-async function getFiles(dir: string): Promise<string[]> {
+export async function getAdocFiles(dir: string): Promise<string[]> {
   const dirents = await fs.promises.readdir(dir, { withFileTypes: true })
   const files = await Promise.all(dirents.map((dirent) => {
     const res = join(dir, dirent.name)
-    return dirent.isDirectory() ? getFiles(res) : res
+    return dirent.isDirectory() ? getAdocFiles(res) : res
   }))
-  return Array.prototype.concat(...files)
+  const allFiles = Array.prototype.concat(...files)
+  const adocOnly = allFiles.filter(file => file.endsWith('.adoc'))
+  return adocOnly
 }
 
 /**
@@ -25,8 +27,7 @@ export async function getAdocPaths(dir: string, paramName = 'slug'): Promise<Get
   if (!dir.endsWith('/'))
     dir = `${dir}/`
 
-  const files = await getFiles(dir)
-  const adocFiles = files.filter(file => file.endsWith('.adoc'))
+  const adocFiles = await getAdocFiles(dir)
   return adocFiles.map((file) => {
     let path = file.replace('.adoc', '')
 
@@ -49,14 +50,9 @@ export function getAdoc(path: string, options?: Asciidoctor.ProcessorOptions) {
     `${path}.adoc`,
     `${path}/index.adoc`,
   ]
-  let validPath
 
-  for (const possiblePath of possiblePaths) {
-    if (fs.existsSync(possiblePath)) {
-      validPath = possiblePath
-      break
-    }
-  }
+  // exists and is file
+  const validPath = possiblePaths.find(p => fs.existsSync(p) && fs.statSync(p).isFile())
 
   if (!validPath)
     throw new Error(`Failed to find AsciiDoc file at ${path}`)

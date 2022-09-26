@@ -1,0 +1,29 @@
+// Vitest Snapshot v1
+
+exports[`getAdocFiles 1`] = `
+[
+  "test/fixtures/document.adoc",
+  "test/fixtures/documents/document.adoc",
+  "test/fixtures/documents/index.adoc",
+]
+`;
+
+exports[`getAdocPaths 1`] = `
+[
+  {
+    "params": {
+      "slug": "document",
+    },
+  },
+  {
+    "params": {
+      "slug": "documents/document",
+    },
+  },
+  {
+    "params": {
+      "slug": "documents",
+    },
+  },
+]
+`;
