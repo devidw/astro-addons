@@ -1,9 +1,9 @@
 name: Release
 
-on:
-  push:
-    tags:
-      - 'v*'
+on: push
+  # push:
+  #   tags:
+  #     - 'v*'
 
 jobs:
   release:
@@ -15,7 +15,7 @@ jobs:
       - name: Build and run dev container task
         uses: devcontainers/ci@v0.2
         with:
-          imageName: ghcr.io/${{ github.repository_owner }}/${{ github.repository_name }}
+          imageName: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}
           runCmd: pnpm -r publish --access public --no-git-checks
           env: |
             NODE_AUTH_TOKEN=${{secrets.NPM_TOKEN}}
