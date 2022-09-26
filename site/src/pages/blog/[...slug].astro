@@ -1,0 +1,19 @@
+---
+import { getAdocPaths, getAdoc } from "astro-adoc"
+
+export async function getStaticPaths() {
+  return await getAdocPaths("src/articles")
+}
+
+const { slug } = Astro.params
+
+const adoc = getAdoc(`src/articles/${slug}`)
+---
+
+<h1>
+  {adoc.getTitle()}
+</h1>
+
+{adoc.getAuthor()}
+
+<Fragment set:html={adoc.convert()} />

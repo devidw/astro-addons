@@ -1,5 +1,5 @@
 ---
-import { getAdocPaths, getAdoc } from "astro-adoc"
+import { getAdocPaths } from "astro-adoc"
 import { AsciiDoctor } from "astro-adoc/components"
 
 export async function getStaticPaths() {
@@ -9,12 +9,9 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params
-
-const adoc = getAdoc(`src/articles/${slug}`)
 ---
 
-<h1>
-  {adoc.getTitle()}
-</h1>
-
-<AsciiDoctor path={`src/articles/${slug}`} />
+<AsciiDoctor
+  path={`src/articles/${slug}`}
+  options={{ attributes: { showtitle: true } }}
+/>

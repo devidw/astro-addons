@@ -1,13 +1,13 @@
-
-import Processor from "asciidoctor"
-import type { Asciidoctor } from "asciidoctor"
 import * as fs from 'fs'
 import { join } from 'path'
+import Processor from 'asciidoctor'
+import type { Asciidoctor } from 'asciidoctor'
+import type { GetStaticPathsResult } from 'astro'
 
 /**
  * Recursively get all .adoc files in a given directory
  */
-export async function getFiles(dir: string): Promise<string[]> {
+async function getFiles(dir: string): Promise<string[]> {
   const dirents = await fs.promises.readdir(dir, { withFileTypes: true })
   const files = await Promise.all(dirents.map((dirent) => {
     const res = join(dir, dirent.name)
@@ -16,7 +16,11 @@ export async function getFiles(dir: string): Promise<string[]> {
   return Array.prototype.concat(...files)
 }
 
-export async function getAdocPaths(dir: string, paramName = 'slug'): Promise<{ params: { [key: string]: string } }[]> {
+/**
+ * Get all .adoc files in a given directory and return a list of paths
+ * that can be used in getStaticPaths
+ */
+export async function getAdocPaths(dir: string, paramName = 'slug'): Promise<GetStaticPathsResult> {
   // maybe add trailing slash if not present
   if (!dir.endsWith('/'))
     dir = `${dir}/`
@@ -36,24 +40,37 @@ export async function getAdocPaths(dir: string, paramName = 'slug'): Promise<{ p
 }
 
 /**
- * 
+ *
  * @see https://asciidoctor.github.io/asciidoctor.js/2.2.5/#document
  */
-export function getAdoc(path: string, options: Asciidoctor.ProcessorOptions = { safe: "safe" }) {
-  if (fs.existsSync(`${path}.adoc`)) {
-    path = `${path}.adoc`
-  } else if (fs.existsSync(`${path}/index.adoc`)) {
-    path = `${path}/index.adoc`
-  } else {
-    throw new Error(`No AsciiDoc file found at ${path}`)
+export function getAdoc(path: string, options?: Asciidoctor.ProcessorOptions) {
+  const possiblePaths = [
+    path,
+    `${path}.adoc`,
+    `${path}/index.adoc`,
+  ]
+  let validPath
+
+  for (const possiblePath of possiblePaths) {
+    if (fs.existsSync(possiblePath)) {
+      validPath = possiblePath
+      break
+    }
   }
+
+  if (!validPath)
+    throw new Error(`Failed to find AsciiDoc file at ${path}`)
+
+  // handle default options
+  options = { safe: 'safe', ...options }
 
   try {
     const processor = Processor()
-    const adoc = processor.loadFile(path, options)
+    const adoc = processor.loadFile(validPath, options)
     return adoc
-  } catch (e) {
+  }
+  catch (e) {
     console.error(e)
-    throw new Error(`Failed to load AsciiDoc file at ${path}`)
+    throw new Error(`Failed to load AsciiDoc file at ${validPath}`)
   }
 }

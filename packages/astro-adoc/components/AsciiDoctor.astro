@@ -1,9 +1,15 @@
 ---
 import { getAdoc } from "../dist/index.js"
+import type { Asciidoctor } from "asciidoctor"
 
-const { path } = Astro.props
+interface Props {
+  path: string
+  options?: Asciidoctor.ProcessorOptions
+}
 
-const html = getAdoc(path).convert()
+const { path, options } = Astro.props as Props
+
+const html = getAdoc(path, options).convert()
 ---
 
 <Fragment set:html={html} />

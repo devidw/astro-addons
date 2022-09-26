@@ -1,0 +1,13 @@
+---
+import { getAdoc } from "astro-adoc"
+
+const adoc = getAdoc(`src/articles/some/some.adoc`)
+---
+
+<h1>
+  {adoc.getTitle()}
+</h1>
+
+{adoc.getAuthor()}
+
+<Fragment set:html={adoc.convert()} />
