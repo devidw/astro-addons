@@ -1,7 +1,7 @@
 {
   "name": "astro-adoc",
   "type": "module",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "AsciiDoctor inside Astro",
   "author": "David Wolf <d@wolf.gdn>",
   "license": "GPL-3.0-or-later",
