@@ -12,6 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      # https://github.com/devcontainers/ci/blob/main/docs/github-action.md
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
@@ -23,6 +24,8 @@ jobs:
         uses: devcontainers/ci@v0.2
         with:
           imageName: ghcr.io/${{ github.repository }}
-          runCmd: pnpm -r publish --access public --no-git-checks
+          runCmd: |
+            pnpm build
+            pnpm -r publish --access public --no-git-checks
           env: |
             NPM_TOKEN=${{secrets.NPM_TOKEN}}

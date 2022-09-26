@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "lint": "eslint . --fix",
-    "prepublishOnly": "pnpm -F './packages/**' build",
+    "build": "pnpm -F './packages/**' build",
     "release": "bumpp package.json packages/*/package.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
