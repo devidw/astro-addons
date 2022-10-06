@@ -1,0 +1,38 @@
+{
+  "name": "astro-supabase",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Supabase with Astro",
+  "author": "David Wolf <d@wolf.gdn>",
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://github.com/devidw/astro-addons/tree/main/packages/astro-supabase#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devidw/astro-addons.git",
+    "directory": "packages/astro-supabase"
+  },
+  "keywords": [
+    "astro-component",
+    "astro-integration",
+    "withastro",
+    "supabase"
+  ],
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "rm -rf dist && tsc",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.2",
+    "astro": "^1.4.1",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^1.35.7",
+    "js-cookie": "^3.0.1"
+  }
+}

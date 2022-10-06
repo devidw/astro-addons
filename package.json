@@ -1,5 +1,5 @@
 {
-  "name": "astro-addons",
+  "name": "monorepo",
   "version": "0.2.3",
   "private": true,
   "scripts": {
