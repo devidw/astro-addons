@@ -2,7 +2,7 @@
   "name": "astro-supabase",
   "private": true,
   "type": "module",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Supabase with Astro",
   "author": "David Wolf <d@wolf.gdn>",
   "license": "GPL-3.0-or-later",
