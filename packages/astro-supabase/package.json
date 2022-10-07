@@ -1,5 +1,6 @@
 {
   "name": "astro-supabase",
+  "private": true,
   "type": "module",
   "version": "0.0.0",
   "description": "Supabase with Astro",
