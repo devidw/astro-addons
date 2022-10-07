@@ -36,7 +36,12 @@ export async function getAdocPaths(dir: string, paramName = 'slug'): Promise<Get
 
     path = path.replace(dir, '')
 
-    return { params: { [paramName]: path } }
+    return {
+      params: { [paramName]: path },
+      props: {
+        adoc: getAdoc(file),
+      }
+    }
   })
 }
 

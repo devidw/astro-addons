@@ -11,7 +11,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "astro": "^1.0.0-rc.2",
+    "astro": "latest",
     "astro-adoc": "workspace:*"
   }
 }

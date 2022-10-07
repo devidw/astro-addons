@@ -29,6 +29,9 @@ const { slug } = Astro.params
 <AsciiDoctor path={`src/articles/${slug}`} />
 ```
 
+Beside the `slug` from `Astro.params`, you also get `adoc` from `Astro.props`
+which is the parsed AsciiDoctor document.
+
 If you want more control over the layout, you can use the `getAdoc` function
 instead of the `AsciiDoctor` component.
 
@@ -36,15 +39,14 @@ You can access anything from the returning `AsciiDoctor.Document` instance you w
 
 ```astro
 ---
-import { getAdocPaths, getAdoc } from "astro-adoc"
+import { getAdocPaths } from "astro-adoc"
+import type { Asciidoctor } from "asciidoctor"
 
 export async function getStaticPaths() {
   return await getAdocPaths("src/articles")
 }
 
-const { slug } = Astro.params
-
-const adoc = getAdoc(`src/articles/${slug}`)
+const { adoc } = Astro.props as { adoc: Asciidoctor.Document }
 ---
 
 <h1>
